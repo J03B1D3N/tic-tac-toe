@@ -20,11 +20,18 @@
    
    startGame()
 
+   restartButton.addEventListener('click', startGame)
    
 
    function startGame() {
+    winningMessageElement.classList.remove('show');
+    cellElement.forEach(cell => {
+    cell.classList.remove(CIRCLE_CLASS)
+    cell.classList.remove(X_CLASS)
+    cell.removeEventListener('click', handleClick)
+    cellElement.forEach(cell => {cell.addEventListener('click', handleClick, {once:true})})
+   })
     circleTurn = false
-        cellElement.forEach(cell => {cell.addEventListener('click', handleClick, {once:true})})
     setBoardHoverClass();
    }
     
@@ -82,3 +89,4 @@
             return cell.classList.contains(X_CLASS) || cell.classList.contains(CIRCLE_CLASS)
         })
        }
+
