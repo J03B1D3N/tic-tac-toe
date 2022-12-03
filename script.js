@@ -1,4 +1,4 @@
-(function() {
+
    const X_CLASS = 'x'
    const CIRCLE_CLASS = 'circle'
    const WINNING_COMBINATIONS = [
@@ -9,16 +9,16 @@
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6],
-   ];
+    [2, 4, 6]
+  ]
    const cellElement = document.querySelectorAll("[data-cell]");
    const board = document.getElementById('board');
    const winningMessageElement = document.getElementById('winningMessage');
-   const winningMessageText = document.querySelector('data-winning-message-text')
+   const winningMessageText = document.querySelector('[data-winning-message-text]')
    const restartButton = document.getElementById('restartButton');
    let circleTurn
    
-   startGame();
+   startGame()
 
    
 
@@ -31,11 +31,12 @@
    function handleClick(e) {
         const cell = e.target
         const currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS
+        placeMark(cell, currentClass)
         if(checkWin(currentClass)){
-            console.log('winner')
+            endGame(false)
         }
 
-        placeMark(cell, currentClass)
+        
         swapTurns()
         setBoardHoverClass()
     }
@@ -63,6 +64,12 @@
         })
       }
 
-       
+       function endGame (draw) {
+        if(draw) {
+
+        } else {
+            winningMessageText.innerText = `${circleTurn ? "O's" : "X's"} Wins!`
+        }
+        winningMessageElement.classList.add('show')
+       }
         
-    })()
