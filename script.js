@@ -34,11 +34,15 @@
         placeMark(cell, currentClass)
         if(checkWin(currentClass)){
             endGame(false)
+        } else if(isDraw()) {
+            endGame(true)
+        } else {
+            swapTurns()
+            setBoardHoverClass()
         }
 
         
-        swapTurns()
-        setBoardHoverClass()
+       
     }
     function placeMark(cell, currentClass) {
         cell.classList.add(currentClass)
@@ -66,10 +70,15 @@
 
        function endGame (draw) {
         if(draw) {
-
+            winningMessageText.innerText = 'Draw!'
         } else {
             winningMessageText.innerText = `${circleTurn ? "O's" : "X's"} Wins!`
         }
         winningMessageElement.classList.add('show')
        }
         
+       function isDraw() {
+        return [...cellElement].every(cell => {
+            return cell.classList.contains(X_CLASS) || cell.classList.contains(CIRCLE_CLASS)
+        })
+       }
